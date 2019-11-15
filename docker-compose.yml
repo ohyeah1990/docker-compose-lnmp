@@ -3,11 +3,24 @@ version: '3.7'
 services:
   nginx:
     image: nginx:1.16.1
-    #restart: always
+    restart: always
     container_name: nginx
     ports:
       - 80:80
+      - 8080:8080
     volumes:
       - ./conf/nginx:/etc/nginx
       - ./log/nginx:/usr/local/var/log
+      - ./www:/var/www
+    depends_on:
+      - php73
+  php73:
+    image: php:7.3.11-fpm
+    restart: always
+    container_name: php73
+    ports:
+      - 9000:9000
+    volumes:
+      - ./conf/php73:/usr/local/etc
+      - ./log/php73:/usr/local/var/log
       - ./www:/var/www
