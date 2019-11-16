@@ -2,20 +2,26 @@ version: '3.7'
 
 services:
   nginx:
-    image: nginx:1.16.1
+    image: nginx:1.16
     restart: always
     container_name: nginx
     ports:
       - 80:80
       - 8080:8080
+      - 8081:8081
+      - 8082:8082
     volumes:
       - ./conf/nginx:/etc/nginx
       - ./log/nginx:/usr/local/var/log
       - ./www:/var/www
     depends_on:
       - php73
+      - php56
   php73:
-    image: php:7.3.11-fpm
+    image: php:7.3-fpm-dev
+    build:
+      context: ./dockerfile/php73
+      dockerfile: Dockerfile
     restart: always
     container_name: php73
     ports:
@@ -24,3 +30,34 @@ services:
       - ./conf/php73:/usr/local/etc
       - ./log/php73:/usr/local/var/log
       - ./www:/var/www
+  php56:
+    image: php:5.6-fpm
+    restart: always
+    container_name: php56
+    ports:
+      - 9001:9001
+    volumes:
+      - ./conf/php56:/usr/local/etc
+      - ./log/php56:/usr/local/var/log
+      - ./www:/var/www
+  mysql57:
+    image: mysql:5.7
+    restart: always
+    container_name: mysql57
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./conf/mysql57:/etc/mysql
+      - ./log/mysql57:/var/log/mysql
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    command: redis-server --requirepass ${REDIS_SERVER_PASSWORD} --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+
