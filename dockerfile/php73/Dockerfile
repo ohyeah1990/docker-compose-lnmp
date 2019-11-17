@@ -23,6 +23,10 @@ RUN docker-php-ext-configure zip --with-libzip \
 RUN pecl install redis-5.1.1 \
     && docker-php-ext-enable redis
 
+# install redis extension
+RUN pecl install swoole \
+    && docker-php-ext-enable swoole
+
 # install mysqli extension
 RUN docker-php-ext-install mysqli
 
