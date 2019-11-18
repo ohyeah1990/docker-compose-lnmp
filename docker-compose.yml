@@ -51,7 +51,7 @@ services:
     volumes:
       - ./conf/mysql57:/etc/mysql
       - ./log/mysql57:/var/log/mysql
-      - ./data/mysql57:/var/lib/mysql
+    # - ./data/mysql57:/var/lib/mysql
   redis:
     image: redis:latest
     restart: always
