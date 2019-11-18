@@ -25,4 +25,4 @@ docker exec -ti nginx /bin/bash
 docker exec -ti redis /bin/bash
 ```
 
-### 待完善，好心给个start,谢谢啦！后续有空出个docker swarm
+### 待完善，好心给个star,谢谢啦！后续有空出个docker swarm
