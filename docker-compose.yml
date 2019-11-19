@@ -49,7 +49,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./conf/mysql57:/etc/mysql
+      #- ./conf/mysql57:/etc/mysql
       - ./log/mysql57:/var/log/mysql
       - ./data/mysql57:/var/lib/mysql
   redis:
